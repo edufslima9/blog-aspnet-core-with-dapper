@@ -17,13 +17,14 @@ namespace Blog
 
       ReadUsers(connection);
       ReadRoles(connection);
-      
+      ReadTags(connection);
+
       connection.Close();
     }
 
     public static void ReadUsers(SqlConnection connection)
     {
-      var repository = new UserRepository(connection);
+      var repository = new Repository<User>(connection);
       var users = repository.GetAll();
 
       foreach (var user in users)
@@ -32,7 +33,7 @@ namespace Blog
 
     public static void ReadUser(SqlConnection connection)
     {
-      var repository = new UserRepository(connection);
+      var repository = new Repository<User>(connection);
       var user = repository.Get(1);
 
       Console.WriteLine(user.Name);
@@ -50,7 +51,7 @@ namespace Blog
         Slug = "equipe-balta"
       };
 
-      var repository = new UserRepository(connection);
+      var repository = new Repository<User>(connection);
       repository.Create(user);
       Console.WriteLine("Cadastro realizado com sucesso!");
     }
@@ -68,14 +69,14 @@ namespace Blog
         Slug = "equipe-balta"
       };
 
-      var repository = new UserRepository(connection);
+      var repository = new Repository<User>(connection);
       repository.Update(user);
       Console.WriteLine("Atualização realizada com sucesso!");
     }
 
     public static void DeleteUser(SqlConnection connection)
     {
-      var repository = new UserRepository(connection);
+      var repository = new Repository<User>(connection);
       var user = repository.Get(1);
 
       repository.Delete(user);
@@ -84,11 +85,20 @@ namespace Blog
 
     public static void ReadRoles(SqlConnection connection)
     {
-      var repository = new RoleRepository(connection);
+      var repository = new Repository<Role>(connection);
       var roles = repository.GetAll();
 
       foreach (var role in roles)
         Console.WriteLine(role.Name);
+    }
+
+    public static void ReadTags(SqlConnection connection)
+    {
+      var repository = new Repository<Tag>(connection);
+      var items = repository.GetAll();
+
+      foreach (var item in items)
+        Console.WriteLine(item.Name);
     }
   }
 }
