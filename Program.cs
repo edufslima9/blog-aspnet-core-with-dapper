@@ -1,5 +1,6 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using Blog.Models;
+using Blog.Repositories;
 using Dapper.Contrib.Extensions;
 using Microsoft.Data.SqlClient;
 
@@ -11,37 +12,34 @@ namespace Blog
 
     static void Main(string[] args)
     {
-      //ReadUsers();
-      //ReadUser();
-      //CreateUser();
-      //UpdateUser();
-      DeleteUser();
+      var connection = new SqlConnection(CONNECTION_STRING);
+      connection.Open();
+      ReadUsers(connection);
+      //ReadUser(connection);
+      //CreateUser(connection);
+      //UpdateUser(connection);
+      //DeleteUser(connection);
+      connection.Close();
     }
 
-    public static void ReadUsers()
+    public static void ReadUsers(SqlConnection connection)
     {
-      using(var connection = new SqlConnection(CONNECTION_STRING))
-      {
-        var users = connection.GetAll<User>();
+      var repository = new UserRepository(connection);
+      var users = repository.GetAll();
 
-        foreach (var user in users)
-        {
-          Console.WriteLine(user.Name);
-        }
-      }
-    }
-
-    public static void ReadUser()
-    {
-      using(var connection = new SqlConnection(CONNECTION_STRING))
-      {
-        var user = connection.Get<User>(1);
-
+      foreach (var user in users)
         Console.WriteLine(user.Name);
-      }
     }
 
-    public static void CreateUser()
+    public static void ReadUser(SqlConnection connection)
+    {
+      var repository = new UserRepository(connection);
+      var user = repository.Get(1);
+
+      Console.WriteLine(user.Name);
+    }
+
+    public static void CreateUser(SqlConnection connection)
     {
       var user = new User()
       {
@@ -53,14 +51,12 @@ namespace Blog
         Slug = "equipe-balta"
       };
 
-      using(var connection = new SqlConnection(CONNECTION_STRING))
-      {
-        connection.Insert<User>(user);
-        Console.WriteLine("Cadastro realizado com sucesso!");
-      }
+      var repository = new UserRepository(connection);
+      repository.Create(user);
+      Console.WriteLine("Cadastro realizado com sucesso!");
     }
 
-    public static void UpdateUser()
+    public static void UpdateUser(SqlConnection connection)
     {
       var user = new User()
       {
@@ -73,22 +69,18 @@ namespace Blog
         Slug = "equipe-balta"
       };
 
-      using(var connection = new SqlConnection(CONNECTION_STRING))
-      {
-        connection.Update<User>(user);
-        Console.WriteLine("Atualização realizada com sucesso!");
-      }
+      var repository = new UserRepository(connection);
+      repository.Update(user);
+      Console.WriteLine("Atualização realizada com sucesso!");
     }
 
-    public static void DeleteUser()
+    public static void DeleteUser(SqlConnection connection)
     {
-      using(var connection = new SqlConnection(CONNECTION_STRING))
-      {
-        var user = connection.Get<User>(2);
+      var repository = new UserRepository(connection);
+      var user = repository.Get(1);
 
-        connection.Delete<User>(user);
-        Console.WriteLine("Exclusão realizada com sucesso!");
-      }
+      repository.Delete(user);
+      Console.WriteLine("Exclusão realizada com sucesso!");
     }
   }
 }
