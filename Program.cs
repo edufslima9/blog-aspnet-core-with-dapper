@@ -1,7 +1,4 @@
-﻿// See https://aka.ms/new-console-template for more information
-using Blog.Models;
-using Blog.Repositories;
-using Dapper.Contrib.Extensions;
+﻿using Blog.Screens.TagScreens;
 using Microsoft.Data.SqlClient;
 
 namespace Blog
@@ -12,114 +9,54 @@ namespace Blog
 
     static void Main(string[] args)
     {
-      var connection = new SqlConnection(CONNECTION_STRING);
-      connection.Open();
+      Database.connection = new SqlConnection(CONNECTION_STRING);
+      Database.connection.Open();
 
-      ReadUsersWithRoles(connection);
-      //ReadRoles(connection);
-      //ReadTags(connection);
+      Load();
 
-      connection.Close();
+      Console.ReadKey();
+      Database.connection.Close();
     }
 
-    public static void ReadUsers(SqlConnection connection)
+    private static void Load()
     {
-      var repository = new Repository<User>(connection);
-      var users = repository.GetAll();
+      Console.Clear();
+      Console.WriteLine("Meu Blog");
+      Console.WriteLine("---------------------");
+      Console.WriteLine("O que você deseja fazer?");
+      Console.WriteLine();
+      Console.WriteLine("1 - Gestão de usuário");
+      Console.WriteLine("2 - Gestão de perfil");
+      Console.WriteLine("3 - Gestão de categoria");
+      Console.WriteLine("4 - Gestão de tag");
+      Console.WriteLine("5 - Vincular perfil/usuário");
+      Console.WriteLine("6 - Vincular post/tag");
+      Console.WriteLine("7 - Relatórios");
+      Console.WriteLine();
+      Console.WriteLine();
+      var option = short.Parse(Console.ReadLine()!);
 
-      foreach (var user in users)
+      switch (option)
       {
-        Console.WriteLine(user.Name);
-        foreach (var role in user.Roles)
-        {
-          Console.WriteLine(role.Name);
-        }
+        /*case 1:
+          break;
+        case 2:
+          break;
+        case 3:
+          break;*/
+        case 4:
+          MenuTagScreen.Load();
+          break;
+        /*case 5:
+          break;
+        case 6:
+          break;
+        case 7:
+          break;*/
+        default:
+          Load();
+          break;
       }
-    }
-
-    public static void ReadUsersWithRoles(SqlConnection connection)
-    {
-      var repository = new UserRepository(connection);
-      var users = repository.GetWithRoles();
-
-      foreach (var user in users)
-      {
-        Console.WriteLine(user.Name);
-        foreach (var role in user.Roles)
-        {
-          Console.WriteLine($" - {role.Name}");
-        }
-      }
-    }
-
-    public static void ReadUser(SqlConnection connection)
-    {
-      var repository = new Repository<User>(connection);
-      var user = repository.Get(1);
-
-      Console.WriteLine(user.Name);
-    }
-
-    public static void CreateUser(SqlConnection connection)
-    {
-      var user = new User()
-      {
-        Bio = "Equipe balta.io",
-        Email = "hello@balta.io",
-        Image = "https://...",
-        Name = "Equipe balta.io",
-        PasswordHash = "HASH",
-        Slug = "equipe-balta"
-      };
-
-      var repository = new Repository<User>(connection);
-      repository.Create(user);
-      Console.WriteLine("Cadastro realizado com sucesso!");
-    }
-
-    public static void UpdateUser(SqlConnection connection)
-    {
-      var user = new User()
-      {
-        Id = 2,
-        Bio = "Equipe | balta.io",
-        Email = "hello@balta.io",
-        Image = "https://...",
-        Name = "Equipe de suporte balta.io",
-        PasswordHash = "HASH",
-        Slug = "equipe-balta"
-      };
-
-      var repository = new Repository<User>(connection);
-      repository.Update(user);
-      Console.WriteLine("Atualização realizada com sucesso!");
-    }
-
-    public static void DeleteUser(SqlConnection connection)
-    {
-      var repository = new Repository<User>(connection);
-      var user = repository.Get(1);
-
-      repository.Delete(user);
-      Console.WriteLine("Exclusão realizada com sucesso!");
-    }
-
-    public static void ReadRoles(SqlConnection connection)
-    {
-      var repository = new Repository<Role>(connection);
-      var roles = repository.GetAll();
-
-      foreach (var role in roles)
-        Console.WriteLine(role.Name);
-    }
-
-    public static void ReadTags(SqlConnection connection)
-    {
-      var repository = new Repository<Tag>(connection);
-      var items = repository.GetAll();
-
-      foreach (var item in items)
-        Console.WriteLine(item.Name);
     }
   }
 }
