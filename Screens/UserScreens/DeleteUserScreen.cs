@@ -23,7 +23,7 @@ namespace Blog.Screens.UserScreens
       {
         var repository = new Repository<User>(Database.connection);
         repository.Delete(id);
-        Console.WriteLine("Usuário exluiído com sucesso");
+        Console.WriteLine("Usuário exluído com sucesso");
       }
       catch (Exception ex)
       {

@@ -39,7 +39,7 @@ namespace Blog.Screens.UserScreens
       {
         var repository = new Repository<User>(Database.connection);
         repository.Create(user);
-        Console.WriteLine("Usuário cadastradao com sucesso");
+        Console.WriteLine("Usuário cadastrado com sucesso");
       }
       catch (Exception ex)
       {

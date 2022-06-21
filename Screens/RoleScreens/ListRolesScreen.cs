@@ -7,7 +7,7 @@ namespace Blog.Screens.RoleScreens
   {
     public static void Load()
     {
-      Console.WriteLine("Lista de usuários");
+      Console.WriteLine("Lista de perfis");
       Console.WriteLine("-------------");
       List();
       Console.ReadKey();

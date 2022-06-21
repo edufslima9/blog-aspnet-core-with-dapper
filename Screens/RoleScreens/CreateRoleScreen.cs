@@ -27,7 +27,7 @@ namespace Blog.Screens.RoleScreens
       {
         var repository = new Repository<Role>(Database.connection);
         repository.Create(role);
-        Console.WriteLine("Perfil cadastradao com sucesso");
+        Console.WriteLine("Perfil cadastrado com sucesso");
       }
       catch (Exception ex)
       {

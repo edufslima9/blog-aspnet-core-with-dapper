@@ -23,7 +23,7 @@ namespace Blog.Screens.RoleScreens
       {
         var repository = new Repository<Role>(Database.connection);
         repository.Delete(id);
-        Console.WriteLine("Perfil exluiído com sucesso");
+        Console.WriteLine("Perfil exluído com sucesso");
       }
       catch (Exception ex)
       {
