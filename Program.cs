@@ -1,4 +1,5 @@
-﻿using Blog.Screens.TagScreens;
+﻿using Blog.Screens.RoleScreens;
+using Blog.Screens.TagScreens;
 using Blog.Screens.UserScreens;
 using Microsoft.Data.SqlClient;
 
@@ -42,9 +43,10 @@ namespace Blog
         case 1:
           MenuUserScreen.Load();
           break;
-        /*case 2:
+        case 2:
+          MenuRoleScreen.Load();
           break;
-        case 3:
+        /*case 3:
           break;*/
         case 4:
           MenuTagScreen.Load();
