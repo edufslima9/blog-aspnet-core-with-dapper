@@ -1,4 +1,5 @@
 ﻿using Blog.Screens.CategoryScreens;
+using Blog.Screens.PostScreens;
 using Blog.Screens.RoleScreens;
 using Blog.Screens.TagScreens;
 using Blog.Screens.UserScreens;
@@ -32,9 +33,10 @@ namespace Blog
       Console.WriteLine("2 - Gestão de perfil");
       Console.WriteLine("3 - Gestão de categoria");
       Console.WriteLine("4 - Gestão de tag");
-      Console.WriteLine("5 - Vincular perfil/usuário");
-      Console.WriteLine("6 - Vincular post/tag");
-      Console.WriteLine("7 - Relatórios");
+      Console.WriteLine("5 - Gestão de post");
+      Console.WriteLine("6 - Vincular perfil/usuário");
+      Console.WriteLine("7 - Vincular post/tag");
+      Console.WriteLine("8 - Relatórios");
       Console.WriteLine();
       Console.WriteLine();
       var option = short.Parse(Console.ReadLine()!);
@@ -53,11 +55,14 @@ namespace Blog
         case 4:
           MenuTagScreen.Load();
           break;
-        /*case 5:
+        case 5:
+          MenuPostScreen.Load();
           break;
-        case 6:
+        /*case 6:
           break;
         case 7:
+          break;
+        case 8:
           break;*/
         default:
           Load();
