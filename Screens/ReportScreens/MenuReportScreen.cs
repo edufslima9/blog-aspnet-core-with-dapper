@@ -24,10 +24,10 @@ namespace Blog.Screens.ReportScreens
         case 1:
           ListUserReportScreen.Load();
           break;
-        /*case 2:
-          CreateRoleScreen.Load();
+        case 2:
+          ListCategoryReportScreen.Load();
           break;
-        case 3:
+        /*case 3:
           UpdateRoleScreen.Load();
           break;
         case 4:
