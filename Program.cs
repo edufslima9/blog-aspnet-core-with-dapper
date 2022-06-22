@@ -1,5 +1,6 @@
 ﻿using Blog.Screens.CategoryScreens;
 using Blog.Screens.PostScreens;
+using Blog.Screens.PostTagScreens;
 using Blog.Screens.RoleScreens;
 using Blog.Screens.TagScreens;
 using Blog.Screens.UserRoleScreens;
@@ -62,9 +63,10 @@ namespace Blog
         case 6:
           CreateUserRoleScreen.Load();
           break;
-        /*case 7:
+        case 7:
+          CreatePostTagScreen.Load();
           break;
-        case 8:
+        /*case 8:
           break;*/
         default:
           Load();
