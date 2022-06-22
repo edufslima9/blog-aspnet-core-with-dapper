@@ -6,6 +6,10 @@ namespace Blog.Models
   public class UserRole
   {
     public int UserId { get; set; }
+    [Write(false)]
+    public User User { get; set; }
     public int RoleId { get; set; }
+    [Write(false)]
+    public Role Role { get; set; }
   }
 }
